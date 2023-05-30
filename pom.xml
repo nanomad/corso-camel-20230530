@@ -53,6 +53,16 @@
             <artifactId>camel-seda-starter</artifactId>
             <version>${camel.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-timer-starter</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-scheduler-starter</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
 
 
         <dependency>
