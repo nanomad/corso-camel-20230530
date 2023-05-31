@@ -8,7 +8,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.Map;
 
-@Component
 public class StoreCitiesSQL extends RouteBuilder {
 
     private final PlatformTransactionManager transactionManager;
