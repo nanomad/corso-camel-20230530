@@ -28,9 +28,9 @@ public class MyRouteBuilder2 extends RouteBuilder {
         csvDf.setUseOrderedMaps("true");
         csvDf.setSkipHeaderRecord("true");
 
-        errorHandler(deadLetterChannel("direct:error-handler"));
 
         from("file:input-cities?includeExt=csv")
+                .errorHandler(deadLetterChannel("direct:error-handler"))
                 .log("Ricevuto file ${header.CamelFileName}")
                 .unmarshal(csvDf).split(body()).streaming()
                 .filter(IS_A_BIG_CITY)

@@ -25,9 +25,9 @@ public class MyRouteBuilder3 extends RouteBuilder {
         csvDf.setUseOrderedMaps("true");
         csvDf.setSkipHeaderRecord("true");
 
-        errorHandler(deadLetterChannel("direct:error-handler"));
 
         from("file:input-cities-2?includeExt=csv")
+                .errorHandler(deadLetterChannel("direct:error-handler2"))
                 .log("Ricevuto file ${header.CamelFileName}")
                 .unmarshal(csvDf)
                 .split(body()).streaming()
@@ -58,7 +58,7 @@ public class MyRouteBuilder3 extends RouteBuilder {
         from("direct:country-india").log("India");
         from("direct:iso2-id").log("ID");
 
-        from("direct:error-handler").log("${body} è andato in errore").stop();
+        from("direct:error-handler2").log("${body} è andato in errore").stop();
 
         from("direct:call-forecasts-api")
                 .routeId("call-forecasts-api")
