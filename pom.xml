@@ -95,6 +95,22 @@
             <artifactId>camel-controlbus-starter</artifactId>
             <version>${camel.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-spring-jdbc-starter</artifactId>
+            <version>${camel.version}</version>
+            <!-- use the same version as your Camel core version -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-sql-starter</artifactId>
+            <version>${camel.version}</version>
+            <!-- use the same version as your Camel core version -->
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
 
     </dependencies>
 

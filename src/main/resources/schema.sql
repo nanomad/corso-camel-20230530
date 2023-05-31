@@ -1,0 +1,6 @@
+CREATE TABLE CITIES
+(
+    city VARCHAR(255) PRIMARY KEY,
+    iso2 CHAR(2) NOT NULL,
+    iso3 CHAR(3) NOT NULL
+);

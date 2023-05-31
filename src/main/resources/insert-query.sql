@@ -1,0 +1,1 @@
+INSERT INTO CITIES(city, iso2, iso3) VALUES ( :?city , :?iso2 , :?iso3 )
