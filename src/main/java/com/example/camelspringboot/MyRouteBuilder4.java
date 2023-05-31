@@ -2,6 +2,7 @@ package com.example.camelspringboot;
 
 
 import org.apache.camel.Exchange;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.CsvDataFormat;
 import org.springframework.stereotype.Component;
@@ -25,16 +26,6 @@ public class MyRouteBuilder4 extends RouteBuilder {
         from("file:input-cities-3?includeExt=csv&moveFailed=.failed&preMove=.inprogress")
                 .routeId("input-cities-3")
                 .streamCaching()
-                .onException(Exception.class)
-                    .maximumRedeliveries(3)
-                    .onRedelivery(x -> {
-                        log.warn("Redelivery in progess...");
-                    })
-                    .redeliveryDelay(30_000)
-                    .logRetryAttempted(true)
-                    .logContinued(true)
-                    .logExhausted(true)
-                .end()
                 .log("Ricevuto file ${header.CamelFileName}")
                 .to("direct:process-csv")
         ;
@@ -71,9 +62,11 @@ public class MyRouteBuilder4 extends RouteBuilder {
                         log.warn("Redelivery HTTP in progess...");
                     })
                     .redeliveryDelay(10_000)
-                    .logRetryAttempted(true)
-                    .logContinued(true)
-                    .logExhausted(true)
+                    .logRetryAttempted(false)
+                    .logContinued(false)
+                    .logExhausted(false)
+                    .logRetryStackTrace(false)
+                    .log(LoggingLevel.ERROR, "Messaggio ${id} fallito con errore ${exception.message}")
                 .end()
                 .routeId("call-forecasts-api-4")
                 .log("Dentro call-forecasts-api-4: ${body}")

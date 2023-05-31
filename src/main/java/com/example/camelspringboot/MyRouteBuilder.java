@@ -31,10 +31,10 @@ public class MyRouteBuilder extends RouteBuilder {
         csvDf.setUseOrderedMaps("true");
         csvDf.setSkipHeaderRecord("true");
 
+
         from("file:input?includeExt=csv")
                 .log("Ricevuto file ${header.CamelFileName}")
                 .multicast(AggregationStrategies.useOriginal(), true)
-                    .to(ExchangePattern.InOut, "direct:elaborazione-b")
                     .to(ExchangePattern.InOut,"direct:elaborazione-a")
                 .end()
                 .log("Ho terminato entrambe le elaborazioni")
