@@ -66,7 +66,7 @@ public class StoreCitiesSQL extends RouteBuilder {
                 .to("sql:classpath:insert-query.sql?allowNamedParameters=true")
                 .setBody().constant(
                         Map.of(
-                                "city", "Tokyo",
+                                "city", "Tokyo2",
                                 "iso2", "JP",
                                 "iso3", "JPN"
                         )
@@ -74,14 +74,13 @@ public class StoreCitiesSQL extends RouteBuilder {
                 .to("sql:classpath:insert-query.sql?allowNamedParameters=true")
         ;
 
-        from("timer:check-cities?repeatCount=50&period=3000&fixedRate=false")
-                .setBody(constant("SELECT * FROM CITIES"))
-                .enrich("spring-jdbc:dataSource?outputType=StreamList", AggregationStrategies.useLatest())
+        from("sql:SELECT * FROM CITIES?outputType=StreamList&delay=5000&repeatCount=50&maxMessagesPerPoll=1")
                 .process(x -> {
                     log.warn("{}", x.getMessage().getBody().getClass());
                 })
                 .split(body()).streaming()
                 .log("${body}")
+                .to("sql:classpath:delete-city.sql")
                 .end()
         ;
 
